@@ -4,6 +4,10 @@ import asyncHandler from 'express-async-handler'
 //@desc     Creates Account
 //@route    POST /api/accounts
 const createAccount = asyncHandler(async (req, res) => {
+  if (req.body.pin > 0 && req.body.pin <= 9999) {
+    throw new Error('Pin must be a 4-digit number')
+  }
+
   const account = new Account(req.body)
 
   const newAccount = await account.save()
