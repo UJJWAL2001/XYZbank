@@ -1,0 +1,21 @@
+{
+  "name": "react-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/index",
+    "server": "nodemon backend/index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "mongoose": "^5.13.8",
+    "mongoose-generate-unique-key": "^0.1.2"
+  }
+}
