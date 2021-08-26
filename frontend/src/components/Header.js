@@ -22,7 +22,7 @@ const Header = () => {
             <NavDropdown
               id='nav-dropdown-dark-example'
               title='Services'
-              menuVariant='dark'
+              menuvariant='dark'
             >
               <LinkContainer to='/deposit'>
                 <NavDropdown.Item>Deposit</NavDropdown.Item>

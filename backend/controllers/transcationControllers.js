@@ -6,9 +6,10 @@ import asyncHandler from 'express-async-handler'
 //@route    POST /api/transactions/deposit
 const depositAmount = asyncHandler(async (req, res) => {
   const { amount, accountNo, depositedBy } = req.body
-  const account = await Account.findById(accountNo)
+  const account = await Account.findById(Number(accountNo))
 
   if (!account) {
+    console.log('hell not found')
     res.status(404)
     throw new Error('Account not found')
   }
