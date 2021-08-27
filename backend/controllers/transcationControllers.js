@@ -16,8 +16,8 @@ const depositAmount = asyncHandler(async (req, res) => {
 
   const accountHolder = account.name
 
-  if (amount > 0) {
-    account.balance += amount
+  if (Number(amount) > 0) {
+    account.balance += Number(amount)
     const tran = new Transaction({
       accountNo,
       amount,
@@ -25,7 +25,7 @@ const depositAmount = asyncHandler(async (req, res) => {
       depositedBy,
       tranType: 'deposit',
     })
-    console.log(tran)
+
     await account.save()
     await tran.save()
 
@@ -43,8 +43,8 @@ const withdrawAmount = asyncHandler(async (req, res) => {
   const account = await Account.findById(accountNo)
 
   if (account && (await account.matchPin(pin))) {
-    if (amount > 0) {
-      account.balance -= amount
+    if (Number(amount) > 0 && Number(amount) <= account.balance) {
+      account.balance -= Number(amount)
       const accountHolder = account.name
       const tran = new Transaction({
         accountHolder,
@@ -59,7 +59,7 @@ const withdrawAmount = asyncHandler(async (req, res) => {
       res.status(200).json({ message: `${amount} is withdrawn` })
     } else {
       res.status(400)
-      throw new Error('Invalid Amount')
+      throw new Error('Insufficient balance')
     }
   } else {
     res.status(400)
@@ -84,9 +84,9 @@ const transferAmount = asyncHandler(async (req, res) => {
     throw new Error('No beneficiary account found')
   }
 
-  if (amount > 0 && amount <= fromAccount.balance) {
-    fromAccount.balance -= amount
-    toAccount.balance += amount
+  if (Number(amount) > 0 && Number(amount) <= fromAccount.balance) {
+    fromAccount.balance -= Number(amount)
+    toAccount.balance += Number(amount)
     const tran = new Transaction({
       accountHolder: toName,
       accountNo: toAccountNo,
@@ -102,7 +102,7 @@ const transferAmount = asyncHandler(async (req, res) => {
     res.status(200).json(tran)
   } else {
     res.status(400)
-    throw new Error('Invalid Amount')
+    throw new Error('Insufficient Balance')
   }
 })
 

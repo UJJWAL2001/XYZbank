@@ -6,12 +6,18 @@ import {
   createAccountReducer,
   balanceAccountReducer,
 } from './reducers/accountReducers'
-import { amountDepositReducer } from './reducers/transcationReducers'
+import {
+  amountDepositReducer,
+  amountWithdrawReducer,
+  amountTransferReducer,
+} from './reducers/transcationReducers'
 
 const reducer = combineReducers({
   createAccount: createAccountReducer,
   balanceAccount: balanceAccountReducer,
   amountDeposit: amountDepositReducer,
+  amountWithdraw: amountWithdrawReducer,
+  amountTransfer: amountTransferReducer,
 })
 
 const middleware = [thunk]
